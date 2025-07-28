@@ -3,63 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>NayaGrow - Phân tích da thông minh</title>
+    <title>NayaGrow - Phân tích da thông minh AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='ada.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='modern-style.css') }}">
 </head>
 <body>
-    <nav class="navbar navbar-light bg-white shadow-sm mb-4">
-        <div class="container d-flex justify-content-start align-items-center">
+    <div class="animated-bg"></div>
+    
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
             <a class="navbar-brand" href="/">
-                <img src="https://nayagrow.phamthong.com/logo1.png" alt="Logo" style="height:56px; width:auto;">
+                <img src="https://nayagrow.phamthong.com/logo1.png" alt="NayaGrow Logo">
             </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Tính năng</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Sản phẩm</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/upload">Phân tích ngay</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </nav>
-    <div class="container">
-        <div class="row align-items-center mb-5">
-            <div class="col-md-6 text-center">
-                <img src="https://media1.popsugar-assets.com/files/thumbor/f4pFuy5SophNcVGpCpWgsuiUNxU/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/01/06/112/n/1922153/tmp_anVdnB_bc2452d3c23052a3_DSC_4322.jpg" alt="Human Face" class="img-fluid rounded shadow">
-            </div>
-            <div class="col-md-6">
-                <h1 class="fw-bold text-primary mb-3">Phân tích da AI</h1>
-                <p class="lead mb-4">Khám phá tình trạng da của bạn: mụn, thâm, nếp nhăn... và nhận tư vấn sản phẩm phù hợp.</p>
-                <a href="upload" class="btn btn-primary btn-lg">Bắt đầu phân tích</a>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="floating-elements">
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+            <div class="floating-element"></div>
+        </div>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 hero-content">
+                    <h1 class="hero-title">
+                        Phân tích da AI
+                        <span style="display: block;">thông minh</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Khám phá tình trạng da của bạn với công nghệ AI tiên tiến. 
+                        Nhận diện chính xác các vấn đề về da và được tư vấn giải pháp phù hợp nhất.
+                    </p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="/upload" class="btn-modern">
+                            <i class="fas fa-camera"></i>
+                            Bắt đầu phân tích
+                        </a>
+                        <a href="#features" class="btn-outline-modern">
+                            <i class="fas fa-info-circle"></i>
+                            Tìm hiểu thêm
+                        </a>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="glass-card p-4">
+                        <img src="https://media1.popsugar-assets.com/files/thumbor/f4pFuy5SophNcVGpCpWgsuiUNxU/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2019/01/06/112/n/1922153/tmp_anVdnB_bc2452d3c23052a3_DSC_4322.jpg" 
+                             alt="AI Skin Analysis" 
+                             class="img-fluid rounded-4 shadow-lg"
+                             style="max-height: 400px; object-fit: cover;">
+                    </div>
+                </div>
             </div>
         </div>
-        <h2 class="text-center fw-bold mb-4">Sản phẩm khuyên dùng</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-4 mb-3">
-                <div class="card shadow-sm h-100">
-                    <img src="https://diary.marshabeauty.com/media/review_images/Skintific_2_Salicylic_Acid_Anti_Acne_Serum.jpg" class="card-img-top" alt="Serum trị mụn">
-                    <div class="card-body">
-                        <h5 class="card-title">Serum trị mụn</h5>
-                        <p class="card-text">Giúp giảm mụn, làm dịu da.</p>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Tại sao chọn NayaGrow?</h2>
+                <p class="lead text-muted">Công nghệ AI tiên tiến kết hợp với chuyên môn dermatology</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-brain fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">AI Thông minh</h4>
+                        <p class="text-muted">Sử dụng deep learning để phân tích chính xác tình trạng da với độ chính xác cao</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card shadow-sm h-100">
-                    <img src="https://vysana.com/wp-content/uploads/2024/02/vysana-skin-analysis.png" class="card-img-top" alt="Phân tích da">
-                    <div class="card-body">
-                        <h5 class="card-title">Phân tích da</h5>
-                        <p class="card-text">Đánh giá tổng thể tình trạng da.</p>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-clock fa-3x text-success"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Nhanh chóng</h4>
+                        <p class="text-muted">Kết quả phân tích trong vài giây, tiết kiệm thời gian và chi phí</p>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 mb-3">
-                <div class="card shadow-sm h-100">
-                    <img src="https://static.wixstatic.com/media/f8f628_941c51ac0bab41da995c3d4c9c224f6c~mv2.png/v1/fill/w_980,h_966,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/f8f628_941c51ac0bab41da995c3d4c9c224f6c~mv2.png" class="card-img-top" alt="Sản phẩm dưỡng da">
-                    <div class="card-body">
-                        <h5 class="card-title">Sản phẩm dưỡng da</h5>
-                        <p class="card-text">Dưỡng ẩm, phục hồi da hiệu quả.</p>
+                <div class="col-md-4">
+                    <div class="glass-card p-4 h-100 text-center">
+                        <div class="mb-3">
+                            <i class="fas fa-user-md fa-3x text-info"></i>
+                        </div>
+                        <h4 class="fw-bold mb-3">Chuyên nghiệp</h4>
+                        <p class="text-muted">Tư vấn dựa trên kiến thức chuyên môn từ các bác sĩ da liễu hàng đầu</p>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="py-5">
+        <div class="container">
+            <div class="text-center mb-5">
+                <h2 class="display-5 fw-bold mb-3">Sản phẩm được khuyên dùng</h2>
+                <p class="lead text-muted">Các sản phẩm chăm sóc da được lựa chọn kỹ lưỡng</p>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card h-100">
+                        <img src="https://diary.marshabeauty.com/media/review_images/Skintific_2_Salicylic_Acid_Anti_Acne_Serum.jpg" 
+                             class="card-img-top" 
+                             alt="Serum trị mụn">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-droplet text-primary me-2"></i>
+                                Serum trị mụn
+                            </h5>
+                            <p class="card-text">Công thức đặc biệt với Salicylic Acid giúp giảm mụn hiệu quả, làm dịu da và ngăn ngừa mụn tái phát.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-success fw-bold">Hiệu quả cao</small>
+                                <i class="fas fa-star text-warning"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card h-100">
+                        <img src="https://vysana.com/wp-content/uploads/2024/02/vysana-skin-analysis.png" 
+                             class="card-img-top" 
+                             alt="Phân tích da">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-search text-info me-2"></i>
+                                Phân tích da AI
+                            </h5>
+                            <p class="card-text">Công nghệ phân tích da tiên tiến giúp đánh giá tổng thể tình trạng da và đưa ra lời khuyên phù hợp.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-info fw-bold">Công nghệ mới</small>
+                                <i class="fas fa-robot text-primary"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="product-card h-100">
+                        <img src="https://static.wixstatic.com/media/f8f628_941c51ac0bab41da995c3d4c9c224f6c~mv2.png/v1/fill/w_980,h_966,al_c,q_90,usm_0.66_1.00_0.01,enc_auto/f8f628_941c51ac0bab41da995c3d4c9c224f6c~mv2.png" 
+                             class="card-img-top" 
+                             alt="Sản phẩm dưỡng da">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-leaf text-success me-2"></i>
+                                Dưỡng da tự nhiên
+                            </h5>
+                            <p class="card-text">Bộ sản phẩm dưỡng da từ thiên nhiên, dưỡng ẩm sâu và phục hồi da hư tổn một cách hiệu quả.</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <small class="text-success fw-bold">100% tự nhiên</small>
+                                <i class="fas fa-heart text-danger"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="glass-card p-5 text-center">
+                <h2 class="display-6 fw-bold mb-3">Sẵn sàng khám phá làn da của bạn?</h2>
+                <p class="lead mb-4">Chỉ cần một bức ảnh, bạn sẽ có được phân tích chi tiết về tình trạng da và lời khuyên chuyên nghiệp</p>
+                <a href="/upload" class="btn-modern btn-lg">
+                    <i class="fas fa-camera me-2"></i>
+                    Bắt đầu phân tích ngay
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer>
-        &copy; 2025 NayaGrow. All Rights Reserved.
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2025 NayaGrow. Tất cả quyền được bảo lưu.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <div class="social-links">
+                        <a href="#" class="text-decoration-none me-3">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none me-3">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="text-decoration-none">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add scroll effect to navbar
+        window.addEventListener('scroll', function() {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+            } else {
+                navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+            }
+        });
+    </script>
 </body>
 </html>
