@@ -2,234 +2,205 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Kết quả phân tích da - NayaGrow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết quả phân tích da - NayaGrow AI</title>
+    <meta name="description" content="Xem kết quả phân tích da chi tiết và nhận tư vấn chăm sóc da chuyên nghiệp từ AI.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='modern-style.css') }}">
 </head>
 <body>
-    <div class="animated-bg"></div>
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
     
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="https://nayagrow.phamthong.com/logo1.png" alt="NayaGrow Logo">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <img src="https://nayagrow.phamthong.com/logo1.png" alt="NayaGrow">
+                NayaGrow
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/">
-                    <i class="fas fa-home me-1"></i>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
                     Trang chủ
-                </a>
-                <a class="nav-link" href="/upload">
-                    <i class="fas fa-camera me-1"></i>
+                </a></li>
+                <li><a href="/upload" class="nav-link">
+                    <i class="fas fa-camera"></i>
                     Phân tích mới
-                </a>
-            </div>
+                </a></li>
+            </ul>
         </div>
     </nav>
 
     <!-- Results Section -->
-    <div class="results-container">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-10">
-                    <div class="result-card">
-                        <!-- Header -->
-                        <div class="text-center mb-5">
-                            <h1 class="display-5 fw-bold mb-3">
-                                <i class="fas fa-chart-line text-success me-3"></i>
-                                Kết quả phân tích da
-                            </h1>
-                            <p class="lead text-muted">
-                                AI đã phân tích ảnh của bạn và đưa ra kết quả chi tiết
-                            </p>
+    <section class="results-section">
+        <div class="results-container">
+            <!-- Header -->
+            <div class="results-header">
+                <h1 class="results-title">
+                    <i class="fas fa-chart-line" style="color: var(--success); margin-right: var(--space-4);"></i>
+                    Kết quả phân tích da
+                </h1>
+                <p class="results-subtitle">
+                    AI đã phân tích ảnh của bạn và đưa ra kết quả chi tiết cùng lời khuyên chuyên nghiệp
+                </p>
+            </div>
+
+            <!-- Main Results -->
+            <div class="results-content">
+                <!-- Image Section -->
+                <div class="results-image-section">
+                    <img src="{{ image_path }}" 
+                         alt="Ảnh đã phân tích" 
+                         class="results-image">
+                    <div class="analysis-badge">
+                        <i class="fas fa-check"></i>
+                        Đã phân tích
+                    </div>
+                </div>
+
+                <!-- Results Details -->
+                <div class="results-details">
+                    <!-- Condition Result -->
+                    <div class="condition-result">
+                        <div class="condition-label">
+                            <i class="fas fa-diagnoses" style="color: var(--primary-color);"></i>
+                            Tình trạng da của bạn
                         </div>
-
-                        <div class="row">
-                            <!-- Image Section -->
-                            <div class="col-lg-5 text-center mb-4">
-                                <div class="position-relative">
-                                    <img src="{{ image_path }}" 
-                                         alt="Ảnh đã phân tích" 
-                                         class="result-image">
-                                    <div class="position-absolute top-0 end-0 m-2">
-                                        <span class="badge bg-success">
-                                            <i class="fas fa-check me-1"></i>
-                                            Đã phân tích
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Results Section -->
-                            <div class="col-lg-7">
-                                <!-- Condition Result -->
-                                <div class="mb-4">
-                                    <h3 class="fw-bold mb-3">
-                                        <i class="fas fa-diagnoses text-primary me-2"></i>
-                                        Tình trạng da của bạn:
-                                    </h3>
-                                    <div class="condition-badge">
-                                        {{ condition }}
-                                    </div>
-                                </div>
-
-                                <!-- Treatment Recommendations -->
-                                <div class="treatment-list">
-                                    <h4 class="fw-bold mb-3">
-                                        <i class="fas fa-prescription-bottle-alt text-info me-2"></i>
-                                        Gợi ý chăm sóc:
-                                    </h4>
-                                    {% for step in treatment %}
-                                    <div class="treatment-item">
-                                        <i class="fas fa-check-circle text-success me-2"></i>
-                                        {{ step }}
-                                    </div>
-                                    {% endfor %}
-                                </div>
-
-                                <!-- Action Buttons -->
-                                <div class="text-center mt-4">
-                                    <a href="/upload" class="btn-modern me-3">
-                                        <i class="fas fa-redo me-2"></i>
-                                        Phân tích lại
-                                    </a>
-                                    <button class="btn-outline-modern" onclick="shareResults()">
-                                        <i class="fas fa-share-alt me-2"></i>
-                                        Chia sẻ kết quả
-                                    </button>
-                                </div>
-                            </div>
+                        <div class="condition-value">
+                            {{ condition }}
                         </div>
+                    </div>
 
-                        <!-- Recommended Products -->
-                        <div class="mt-5">
-                            <h3 class="fw-bold text-center mb-4">
-                                <i class="fas fa-shopping-bag text-warning me-2"></i>
-                                Sản phẩm được khuyên dùng
-                            </h3>
-                            <div class="row g-4">
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="product-card h-100">
-                                        <img src="https://media1.popsugar-assets.com/files/thumbor/p1Q_1mDEPg-Ot4yDz-Ts52GnqiY/fit-in/1024x1024/filters:format_auto-!!-:strip_icc-!!-/2022/10/24/866/n/1922153/d171cdba234ceab4_netimgD44MBC/i/For-Clear-Skin-CeraVe-Acne-Skin-Care-Set.jpg" 
-                                             class="card-img-top" 
-                                             alt="Bộ sản phẩm trị mụn">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <i class="fas fa-droplet text-primary me-2"></i>
-                                                Bộ sản phẩm trị mụn
-                                            </h5>
-                                            <p class="card-text">Bộ sản phẩm chuyên biệt giúp làm sạch sâu, giảm mụn và ngăn ngừa mụn tái phát.</p>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="badge bg-success">Phù hợp</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="product-card h-100">
-                                        <img src="https://thesafabeauty.com/cdn/shop/files/axisserum.webp?v=1698344904&width=1946" 
-                                             class="card-img-top" 
-                                             alt="Serum xóa thâm">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <i class="fas fa-magic text-info me-2"></i>
-                                                Serum xóa thâm nám
-                                            </h5>
-                                            <p class="card-text">Serum chuyên sâu giúp làm mờ thâm nám, đều màu da và tăng độ sáng tự nhiên.</p>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="badge bg-info">Hiệu quả</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="far fa-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6">
-                                    <div class="product-card h-100">
-                                        <img src="https://spy.com/wp-content/uploads/2020/10/Remedial-Retinol-Face-Cream.jpg?resize=525" 
-                                             class="card-img-top" 
-                                             alt="Kem chống lão hóa">
-                                        <div class="card-body">
-                                            <h5 class="card-title">
-                                                <i class="fas fa-leaf text-success me-2"></i>
-                                                Kem chống lão hóa
-                                            </h5>
-                                            <p class="card-text">Kem dưỡng cao cấp với Retinol giúp giảm nếp nhăn và tăng độ đàn hồi cho da.</p>
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <span class="badge bg-warning">Premium</span>
-                                                <div class="text-warning">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div>
-                                            </div>
-                                        </div>
+                    <!-- Treatment Recommendations -->
+                    <div class="treatment-section">
+                        <h3 class="treatment-title">
+                            <i class="fas fa-prescription-bottle-alt" style="color: var(--info);"></i>
+                            Gợi ý chăm sóc chuyên nghiệp
+                        </h3>
+                        <div class="treatment-list">
+                            {% for step in treatment %}
+                            <div class="treatment-item">
+                                <i class="fas fa-check-circle treatment-icon"></i>
+                                <span>{{ step }}</span>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="results-actions">
+                        <a href="/upload" class="btn btn-primary btn-lg">
+                            <i class="fas fa-redo"></i>
+                            Phân tích lại
+                        </a>
+                        <button class="btn btn-secondary btn-lg" onclick="shareResults()">
+                            <i class="fas fa-share-alt"></i>
+                            Chia sẻ kết quả
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recommended Products -->
+            <div class="products-section" style="background: var(--white); padding: var(--space-16) 0;">
+                <div class="products-container">
+                    <div class="products-header">
+                        <h2 class="products-title">
+                            <i class="fas fa-shopping-bag" style="color: var(--warning); margin-right: var(--space-3);"></i>
+                            Sản phẩm được khuyên dùng
+                        </h2>
+                        <p style="color: var(--gray-600); font-size: 1.125rem;">
+                            Dựa trên kết quả phân tích, đây là những sản phẩm phù hợp với tình trạng da của bạn
+                        </p>
+                    </div>
+                    
+                    <div class="products-grid">
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Bộ sản phẩm trị mụn" 
+                                 class="product-image"
+                                 loading="lazy">
+                            <div class="product-content">
+                                <h3 class="product-title">
+                                    <i class="fas fa-droplet" style="color: var(--primary-color);"></i>
+                                    Bộ sản phẩm trị mụn chuyên sâu
+                                </h3>
+                                <p class="product-description">
+                                    Bộ sản phẩm chuyên biệt với Salicylic Acid và Tea Tree Oil giúp làm sạch sâu, 
+                                    giảm mụn hiệu quả và ngăn ngừa mụn tái phát.
+                                </p>
+                                <div class="product-footer">
+                                    <span class="product-badge badge-success">Phù hợp với bạn</span>
+                                    <div class="product-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-                        <!-- Additional Tips -->
-                        <div class="mt-5">
-                            <div class="glass-card p-4">
-                                <h4 class="fw-bold mb-3">
-                                    <i class="fas fa-lightbulb text-warning me-2"></i>
-                                    Lời khuyên thêm:
-                                </h4>
-                                <div class="row g-3">
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-start">
-                                            <i class="fas fa-sun text-warning me-2 mt-1"></i>
-                                            <div>
-                                                <strong>Bảo vệ khỏi tia UV</strong>
-                                                <p class="mb-0 text-muted small">Luôn sử dụng kem chống nắng SPF 30+ mỗi ngày</p>
-                                            </div>
-                                        </div>
+                        
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1620916566398-39f1143ab7be?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Serum xóa thâm nám" 
+                                 class="product-image"
+                                 loading="lazy">
+                            <div class="product-content">
+                                <h3 class="product-title">
+                                    <i class="fas fa-magic" style="color: var(--info);"></i>
+                                    Serum làm sáng da chuyên sâu
+                                </h3>
+                                <p class="product-description">
+                                    Serum Vitamin C 20% kết hợp Niacinamide giúp làm mờ thâm nám, 
+                                    đều màu da và tăng độ sáng tự nhiên.
+                                </p>
+                                <div class="product-footer">
+                                    <span class="product-badge badge-info">Hiệu quả cao</span>
+                                    <div class="product-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-start">
-                                            <i class="fas fa-tint text-info me-2 mt-1"></i>
-                                            <div>
-                                                <strong>Duy trì độ ẩm</strong>
-                                                <p class="mb-0 text-muted small">Uống đủ nước và dưỡng ẩm đều đặn</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-start">
-                                            <i class="fas fa-apple-alt text-success me-2 mt-1"></i>
-                                            <div>
-                                                <strong>Chế độ ăn lành mạnh</strong>
-                                                <p class="mb-0 text-muted small">Bổ sung vitamin và chất chống oxy hóa</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="d-flex align-items-start">
-                                            <i class="fas fa-bed text-primary me-2 mt-1"></i>
-                                            <div>
-                                                <strong>Ngủ đủ giấc</strong>
-                                                <p class="mb-0 text-muted small">7-8 tiếng mỗi đêm để da tự phục hồi</p>
-                                            </div>
-                                        </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="product-card">
+                            <img src="https://images.unsplash.com/photo-1571781926291-c477ebfd024b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" 
+                                 alt="Kem chống lão hóa" 
+                                 class="product-image"
+                                 loading="lazy">
+                            <div class="product-content">
+                                <h3 class="product-title">
+                                    <i class="fas fa-leaf" style="color: var(--success);"></i>
+                                    Kem chống lão hóa premium
+                                </h3>
+                                <p class="product-description">
+                                    Kem dưỡng cao cấp với Retinol và Peptides giúp giảm nếp nhăn, 
+                                    tăng độ đàn hồi và làm chậm quá trình lão hóa da.
+                                </p>
+                                <div class="product-footer">
+                                    <span class="product-badge badge-warning">Premium</span>
+                                    <div class="product-rating">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
                                     </div>
                                 </div>
                             </div>
@@ -237,38 +208,171 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Additional Tips -->
+            <div style="margin-top: var(--space-16);">
+                <div class="glass-card" style="padding: var(--space-12);">
+                    <h3 style="font-size: 1.75rem; font-weight: 700; margin-bottom: var(--space-8); text-align: center; color: var(--gray-800);">
+                        <i class="fas fa-lightbulb" style="color: var(--warning); margin-right: var(--space-3);"></i>
+                        Lời khuyên chuyên gia
+                    </h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: var(--space-8);">
+                        <div class="glass-card" style="padding: var(--space-6); text-align: center;">
+                            <div style="width: 60px; height: 60px; margin: 0 auto var(--space-4); background: linear-gradient(135deg, #f59e0b, #f97316); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-sun" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <h4 style="font-weight: 600; margin-bottom: var(--space-3); color: var(--gray-800);">Bảo vệ khỏi tia UV</h4>
+                            <p style="color: var(--gray-600); font-size: 0.875rem; line-height: 1.6;">
+                                Luôn sử dụng kem chống nắng SPF 30+ mỗi ngày, kể cả khi ở trong nhà
+                            </p>
+                        </div>
+                        
+                        <div class="glass-card" style="padding: var(--space-6); text-align: center;">
+                            <div style="width: 60px; height: 60px; margin: 0 auto var(--space-4); background: linear-gradient(135deg, #06b6d4, #0891b2); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-tint" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <h4 style="font-weight: 600; margin-bottom: var(--space-3); color: var(--gray-800);">Duy trì độ ẩm</h4>
+                            <p style="color: var(--gray-600); font-size: 0.875rem; line-height: 1.6;">
+                                Uống đủ 2-3 lít nước mỗi ngày và dưỡng ẩm da đều đặn
+                            </p>
+                        </div>
+                        
+                        <div class="glass-card" style="padding: var(--space-6); text-align: center;">
+                            <div style="width: 60px; height: 60px; margin: 0 auto var(--space-4); background: linear-gradient(135deg, #10b981, #059669); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-apple-alt" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <h4 style="font-weight: 600; margin-bottom: var(--space-3); color: var(--gray-800);">Chế độ ăn lành mạnh</h4>
+                            <p style="color: var(--gray-600); font-size: 0.875rem; line-height: 1.6;">
+                                Bổ sung vitamin C, E và chất chống oxy hóa từ trái cây, rau xanh
+                            </p>
+                        </div>
+                        
+                        <div class="glass-card" style="padding: var(--space-6); text-align: center;">
+                            <div style="width: 60px; height: 60px; margin: 0 auto var(--space-4); background: linear-gradient(135deg, #8b5cf6, #7c3aed); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                                <i class="fas fa-bed" style="color: white; font-size: 1.5rem;"></i>
+                            </div>
+                            <h4 style="font-weight: 600; margin-bottom: var(--space-3); color: var(--gray-800);">Ngủ đủ giấc</h4>
+                            <p style="color: var(--gray-600); font-size: 0.875rem; line-height: 1.6;">
+                                7-8 tiếng mỗi đêm để da có thời gian tự phục hồi và tái tạo
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Tracking CTA -->
+            <div style="margin-top: var(--space-16); text-align: center;">
+                <div class="glass-card" style="padding: var(--space-12); background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(249, 147, 251, 0.05) 100%);">
+                    <h3 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--space-4); color: var(--gray-800);">
+                        Theo dõi tiến trình cải thiện da
+                    </h3>
+                    <p style="font-size: 1.125rem; color: var(--gray-600); margin-bottom: var(--space-8); max-width: 600px; margin-left: auto; margin-right: auto;">
+                        Chụp ảnh định kỳ mỗi tuần để theo dõi sự thay đổi tích cực của làn da. 
+                        AI sẽ giúp bạn đánh giá tiến trình một cách khoa học.
+                    </p>
+                    <div style="display: flex; gap: var(--space-4); justify-content: center; flex-wrap: wrap;">
+                        <a href="/upload" class="btn btn-primary btn-lg">
+                            <i class="fas fa-camera"></i>
+                            Phân tích lần tiếp theo
+                        </a>
+                        <button class="btn btn-secondary btn-lg" onclick="downloadReport()">
+                            <i class="fas fa-download"></i>
+                            Tải báo cáo PDF
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 NayaGrow. Tất cả quyền được bảo lưu.</p>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 NayaGrow. Tất cả quyền được bảo lưu.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
     <script>
         // Share results function
         function shareResults() {
             if (navigator.share) {
                 navigator.share({
                     title: 'Kết quả phân tích da - NayaGrow',
-                    text: 'Tôi vừa phân tích da với AI của NayaGrow. Kết quả rất chi tiết!',
+                    text: 'Tôi vừa phân tích da với AI của NayaGrow. Kết quả rất chi tiết và hữu ích!',
                     url: window.location.href
-                });
+                }).catch(console.error);
             } else {
                 // Fallback for browsers that don't support Web Share API
                 const url = window.location.href;
                 navigator.clipboard.writeText(url).then(() => {
-                    alert('Đã sao chép link kết quả vào clipboard!');
+                    showNotification('Đã sao chép link kết quả vào clipboard!', 'success');
+                }).catch(() => {
+                    showNotification('Không thể sao chép link. Vui lòng thử lại.', 'error');
                 });
             }
         }
 
-        // Add animation on scroll
+        // Download report function (placeholder)
+        function downloadReport() {
+            showNotification('Tính năng tải báo cáo PDF sẽ có sớm!', 'info');
+        }
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                success: 'var(--success)',
+                error: 'var(--error)',
+                info: 'var(--info)',
+                warning: 'var(--warning)'
+            };
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 10000;
+                background: ${colors[type]};
+                color: white;
+                padding: var(--space-4) var(--space-6);
+                border-radius: var(--radius-lg);
+                font-weight: 600;
+                max-width: 400px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                box-shadow: var(--shadow-xl);
+            `;
+            
+            notification.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-2);">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Remove after 4 seconds
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (document.body.contains(notification)) {
+                        document.body.removeChild(notification);
+                    }
+                }, 300);
+            }, 4000);
+        }
+
+        // Intersection Observer for animations
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -283,20 +387,52 @@
             });
         }, observerOptions);
 
-        // Observe all cards
-        document.querySelectorAll('.product-card, .treatment-item').forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(20px)';
-            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(card);
+        // Observe all animatable elements
+        document.querySelectorAll('.product-card, .treatment-item, .glass-card').forEach((element, index) => {
+            element.style.opacity = '0';
+            element.style.transform = 'translateY(30px)';
+            element.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+            observer.observe(element);
         });
 
-        // Add stagger effect to treatment items
+        // Stagger animation for treatment items
         document.querySelectorAll('.treatment-item').forEach((item, index) => {
             setTimeout(() => {
                 item.style.opacity = '1';
                 item.style.transform = 'translateY(0)';
-            }, index * 200);
+            }, index * 150);
+        });
+
+        // Add entrance animation to main content
+        window.addEventListener('load', () => {
+            const resultsContent = document.querySelector('.results-content');
+            resultsContent.style.opacity = '0';
+            resultsContent.style.transform = 'translateY(30px)';
+            resultsContent.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            
+            setTimeout(() => {
+                resultsContent.style.opacity = '1';
+                resultsContent.style.transform = 'translateY(0)';
+            }, 200);
+        });
+
+        // Add hover effects to product cards
+        document.querySelectorAll('.product-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-12px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(-8px) scale(1)';
+            });
+        });
+
+        // Add click tracking for analytics (placeholder)
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                // Analytics tracking would go here
+                console.log('Button clicked:', e.target.textContent.trim());
+            });
         });
     </script>
 </body>

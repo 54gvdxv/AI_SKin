@@ -2,150 +2,195 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tải ảnh phân tích - NayaGrow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tải ảnh phân tích - NayaGrow AI Skin Analysis</title>
+    <meta name="description" content="Tải ảnh khuôn mặt để phân tích tình trạng da với công nghệ AI tiên tiến. Kết quả chính xác trong vài giây.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='modern-style.css') }}">
 </head>
 <body>
-    <div class="animated-bg"></div>
+    <!-- Background Pattern -->
+    <div class="bg-pattern"></div>
     
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-            <a class="navbar-brand" href="/">
-                <img src="https://nayagrow.phamthong.com/logo1.png" alt="NayaGrow Logo">
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="/" class="navbar-brand">
+                <img src="https://nayagrow.phamthong.com/logo1.png" alt="NayaGrow">
+                NayaGrow
             </a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="/">
-                    <i class="fas fa-home me-1"></i>
+            <ul class="navbar-nav">
+                <li><a href="/" class="nav-link">
+                    <i class="fas fa-home"></i>
                     Trang chủ
-                </a>
-            </div>
+                </a></li>
+                <li><a href="/#features" class="nav-link">Tính năng</a></li>
+            </ul>
         </div>
     </nav>
 
     <!-- Upload Section -->
-    <div class="upload-container">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8">
-                    <div class="upload-card">
-                        <div class="text-center mb-4">
-                            <h1 class="display-5 fw-bold mb-3">
-                                <i class="fas fa-camera text-primary me-3"></i>
-                                Tải ảnh khuôn mặt
-                            </h1>
-                            <p class="lead text-muted">
-                                Chọn ảnh rõ nét khuôn mặt để AI phân tích tình trạng da của bạn
-                            </p>
+    <section class="upload-section">
+        <div class="upload-container">
+            <div class="upload-card">
+                <!-- Header -->
+                <div class="upload-header">
+                    <h1 class="upload-title">
+                        <i class="fas fa-camera" style="color: var(--primary-color); margin-right: var(--space-4);"></i>
+                        Tải ảnh khuôn mặt
+                    </h1>
+                    <p class="upload-subtitle">
+                        Chọn ảnh rõ nét khuôn mặt để AI phân tích tình trạng da của bạn một cách chính xác nhất
+                    </p>
+                </div>
+
+                <!-- Flash Messages -->
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.2); border-radius: var(--radius-lg); padding: var(--space-4); margin-bottom: var(--space-6); color: var(--error);">
+                            {% for message in messages %}
+                                <div style="display: flex; align-items: center; gap: var(--space-2);">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                    <span>{{ message }}</span>
+                                </div>
+                            {% endfor %}
                         </div>
+                    {% endif %}
+                {% endwith %}
 
-                        <!-- Flash Messages -->
-                        {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                                <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                                    {% for message in messages %}
-                                        <i class="fas fa-exclamation-triangle me-2"></i>{{ message }}
-                                    {% endfor %}
-                                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                </div>
-                            {% endif %}
-                        {% endwith %}
-
-                        <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
-                            <div class="file-upload-area" id="uploadArea">
-                                <input type="file" name="file" id="fileInput" accept="image/*" class="file-input" required>
-                                <div class="upload-content">
-                                    <i class="fas fa-cloud-upload-alt upload-icon"></i>
-                                    <div class="upload-text">
-                                        <strong>Kéo thả ảnh vào đây</strong> hoặc <strong>nhấp để chọn</strong>
-                                    </div>
-                                    <small class="text-muted">
-                                        Hỗ trợ: JPG, PNG, GIF (tối đa 10MB)
-                                    </small>
-                                </div>
+                <!-- Upload Form -->
+                <form action="/upload" method="post" enctype="multipart/form-data" id="uploadForm">
+                    <!-- Upload Area -->
+                    <div class="upload-area" id="uploadArea">
+                        <input type="file" name="file" id="fileInput" accept="image/*" class="file-input" required>
+                        <div class="upload-content">
+                            <i class="fas fa-cloud-upload-alt upload-icon"></i>
+                            <div class="upload-text">
+                                Kéo thả ảnh vào đây hoặc <strong>nhấp để chọn</strong>
                             </div>
-                            
-                            <div id="imagePreview" class="text-center mt-3" style="display: none;">
-                                <img id="previewImg" src="" alt="Preview" class="img-fluid rounded shadow" style="max-height: 200px;">
-                                <div class="mt-2">
-                                    <button type="button" class="btn btn-outline-secondary btn-sm" onclick="clearImage()">
-                                        <i class="fas fa-times me-1"></i>
-                                        Xóa ảnh
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="text-center mt-4">
-                                <button type="submit" class="btn-modern btn-lg" id="analyzeBtn" disabled>
-                                    <i class="fas fa-magic me-2"></i>
-                                    <span id="btnText">Phân tích ngay</span>
-                                    <div class="loading-spinner ms-2" id="loadingSpinner" style="display: none;"></div>
-                                </button>
-                            </div>
-                        </form>
-
-                        <!-- Tips Section -->
-                        <div class="mt-5">
-                            <h5 class="fw-bold mb-3">
-                                <i class="fas fa-lightbulb text-warning me-2"></i>
-                                Mẹo để có kết quả tốt nhất:
-                            </h5>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-start">
-                                        <i class="fas fa-check-circle text-success me-2 mt-1"></i>
-                                        <small>Chụp trong ánh sáng tự nhiên</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-start">
-                                        <i class="fas fa-check-circle text-success me-2 mt-1"></i>
-                                        <small>Khuôn mặt nhìn thẳng camera</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-start">
-                                        <i class="fas fa-check-circle text-success me-2 mt-1"></i>
-                                        <small>Không trang điểm quá đậm</small>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="d-flex align-items-start">
-                                        <i class="fas fa-check-circle text-success me-2 mt-1"></i>
-                                        <small>Ảnh rõ nét, không bị mờ</small>
-                                    </div>
-                                </div>
+                            <div class="upload-hint">
+                                Hỗ trợ: JPG, PNG, GIF • Tối đa 10MB
                             </div>
                         </div>
+                    </div>
+                    
+                    <!-- Image Preview -->
+                    <div id="imagePreview" class="image-preview" style="display: none;">
+                        <img id="previewImg" src="" alt="Preview" class="preview-image">
+                        <div style="margin-top: var(--space-4);">
+                            <button type="button" class="btn btn-secondary" onclick="clearImage()">
+                                <i class="fas fa-times"></i>
+                                Xóa ảnh
+                            </button>
+                        </div>
+                    </div>
 
-                        <!-- Example Image -->
-                        <div class="text-center mt-4">
-                            <p class="text-muted mb-3">Ảnh mẫu tham khảo:</p>
-                            <img src="https://img.freepik.com/premium-photo/indian-model-reveals-clean-skin-natural-face-cleanser-beauty-ad_878783-15650.jpg" 
-                                 alt="Ảnh mẫu" 
-                                 class="img-fluid rounded shadow" 
-                                 style="max-width: 250px; opacity: 0.8;">
+                    <!-- Submit Button -->
+                    <div style="text-align: center; margin-top: var(--space-8);">
+                        <button type="submit" class="btn btn-primary btn-xl" id="analyzeBtn" disabled>
+                            <i class="fas fa-magic"></i>
+                            <span id="btnText">Phân tích ngay</span>
+                            <div class="loading-spinner" id="loadingSpinner" style="display: none; margin-left: var(--space-2);"></div>
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Tips Section -->
+                <div class="tips-section">
+                    <h3 class="tips-title">
+                        <i class="fas fa-lightbulb" style="color: var(--warning);"></i>
+                        Mẹo để có kết quả tốt nhất
+                    </h3>
+                    <div class="tips-grid">
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <span>Chụp trong ánh sáng tự nhiên</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <span>Khuôn mặt nhìn thẳng camera</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <span>Không trang điểm quá đậm</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <span>Ảnh rõ nét, không bị mờ</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <span>Tránh bóng đổ trên mặt</span>
+                        </div>
+                        <div class="tip-item">
+                            <i class="fas fa-check-circle tip-icon"></i>
+                            <span>Khoảng cách phù hợp (30-50cm)</span>
                         </div>
                     </div>
                 </div>
+
+                <!-- Example Section -->
+                <div style="text-align: center; margin-top: var(--space-12); padding: var(--space-8); background: var(--gray-50); border-radius: var(--radius-xl);">
+                    <h4 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-6); color: var(--gray-800);">
+                        <i class="fas fa-image" style="color: var(--info); margin-right: var(--space-2);"></i>
+                        Ảnh mẫu tham khảo
+                    </h4>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6); max-width: 600px; margin: 0 auto;">
+                        <div style="text-align: center;">
+                            <img src="https://images.unsplash.com/photo-1594824804732-5f7c0b2b8b8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                                 alt="Ảnh mẫu tốt" 
+                                 style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                            <div style="margin-top: var(--space-3); display: flex; align-items: center; justify-content: center; gap: var(--space-2); color: var(--success);">
+                                <i class="fas fa-check-circle"></i>
+                                <span style="font-weight: 600; font-size: 0.875rem;">Tốt</span>
+                            </div>
+                        </div>
+                        <div style="text-align: center;">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=500&q=80" 
+                                 alt="Ảnh mẫu tốt" 
+                                 style="width: 100%; height: 200px; object-fit: cover; border-radius: var(--radius-lg); box-shadow: var(--shadow-md);">
+                            <div style="margin-top: var(--space-3); display: flex; align-items: center; justify-content: center; gap: var(--space-2); color: var(--success);">
+                                <i class="fas fa-check-circle"></i>
+                                <span style="font-weight: 600; font-size: 0.875rem;">Tốt</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Notice -->
+                <div style="margin-top: var(--space-8); padding: var(--space-6); background: rgba(59, 130, 246, 0.05); border: 1px solid rgba(59, 130, 246, 0.1); border-radius: var(--radius-lg);">
+                    <div style="display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-3);">
+                        <i class="fas fa-shield-alt" style="color: var(--info); font-size: 1.5rem;"></i>
+                        <h4 style="font-weight: 600; color: var(--gray-800); margin: 0;">Bảo mật & Quyền riêng tư</h4>
+                    </div>
+                    <p style="color: var(--gray-600); margin: 0; line-height: 1.6;">
+                        Ảnh của bạn được xử lý hoàn toàn tự động và không được lưu trữ trên hệ thống. 
+                        Chúng tôi cam kết bảo vệ quyền riêng tư và tuân thủ các tiêu chuẩn bảo mật quốc tế.
+                    </p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 
     <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="text-center">
-                <p class="mb-0">&copy; 2025 NayaGrow. Tất cả quyền được bảo lưu.</p>
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 NayaGrow. Tất cả quyền được bảo lưu.</p>
             </div>
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Scripts -->
     <script>
         const fileInput = document.getElementById('fileInput');
         const uploadArea = document.getElementById('uploadArea');
@@ -162,7 +207,8 @@
             uploadArea.classList.add('dragover');
         });
 
-        uploadArea.addEventListener('dragleave', () => {
+        uploadArea.addEventListener('dragleave', (e) => {
+            e.preventDefault();
             uploadArea.classList.remove('dragover');
         });
 
@@ -185,22 +231,28 @@
                 // Validate file type
                 const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/gif'];
                 if (!validTypes.includes(file.type)) {
-                    alert('Vui lòng chọn file ảnh hợp lệ (JPG, PNG, GIF)');
+                    showAlert('Vui lòng chọn file ảnh hợp lệ (JPG, PNG, GIF)', 'error');
                     return;
                 }
 
                 // Validate file size (10MB)
                 if (file.size > 10 * 1024 * 1024) {
-                    alert('File ảnh quá lớn. Vui lòng chọn file nhỏ hơn 10MB');
+                    showAlert('File ảnh quá lớn. Vui lòng chọn file nhỏ hơn 10MB', 'error');
                     return;
                 }
 
-                // Show preview
+                // Show preview with animation
                 const reader = new FileReader();
                 reader.onload = (e) => {
                     previewImg.src = e.target.result;
                     imagePreview.style.display = 'block';
                     analyzeBtn.disabled = false;
+                    
+                    // Animate preview appearance
+                    setTimeout(() => {
+                        imagePreview.style.opacity = '1';
+                        imagePreview.style.transform = 'translateY(0)';
+                    }, 10);
                 };
                 reader.readAsDataURL(file);
             }
@@ -208,15 +260,59 @@
 
         function clearImage() {
             fileInput.value = '';
-            imagePreview.style.display = 'none';
+            imagePreview.style.opacity = '0';
+            imagePreview.style.transform = 'translateY(20px)';
+            setTimeout(() => {
+                imagePreview.style.display = 'none';
+            }, 300);
             analyzeBtn.disabled = true;
+        }
+
+        function showAlert(message, type = 'info') {
+            // Create alert element
+            const alert = document.createElement('div');
+            alert.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                z-index: 10000;
+                padding: var(--space-4);
+                border-radius: var(--radius-lg);
+                color: white;
+                font-weight: 600;
+                max-width: 400px;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                ${type === 'error' ? 'background: var(--error);' : 'background: var(--info);'}
+            `;
+            alert.innerHTML = `
+                <div style="display: flex; align-items: center; gap: var(--space-2);">
+                    <i class="fas fa-${type === 'error' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+            `;
+            
+            document.body.appendChild(alert);
+            
+            // Animate in
+            setTimeout(() => {
+                alert.style.transform = 'translateX(0)';
+            }, 10);
+            
+            // Remove after 5 seconds
+            setTimeout(() => {
+                alert.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    document.body.removeChild(alert);
+                }, 300);
+            }, 5000);
         }
 
         // Form submission with loading state
         uploadForm.addEventListener('submit', (e) => {
             if (!fileInput.files[0]) {
                 e.preventDefault();
-                alert('Vui lòng chọn ảnh để phân tích');
+                showAlert('Vui lòng chọn ảnh để phân tích', 'error');
                 return;
             }
 
@@ -224,11 +320,68 @@
             analyzeBtn.disabled = true;
             btnText.textContent = 'Đang phân tích...';
             loadingSpinner.style.display = 'inline-block';
+            
+            // Add pulsing effect to the button
+            analyzeBtn.style.animation = 'pulse 2s infinite';
         });
 
         // Click to upload
-        uploadArea.addEventListener('click', () => {
-            fileInput.click();
+        uploadArea.addEventListener('click', (e) => {
+            if (e.target === uploadArea || e.target.closest('.upload-content')) {
+                fileInput.click();
+            }
+        });
+
+        // Initialize preview styles
+        imagePreview.style.opacity = '0';
+        imagePreview.style.transform = 'translateY(20px)';
+        imagePreview.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+
+        // Add entrance animation to upload card
+        window.addEventListener('load', () => {
+            const uploadCard = document.querySelector('.upload-card');
+            uploadCard.style.opacity = '0';
+            uploadCard.style.transform = 'translateY(30px)';
+            uploadCard.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            
+            setTimeout(() => {
+                uploadCard.style.opacity = '1';
+                uploadCard.style.transform = 'translateY(0)';
+            }, 100);
+        });
+
+        // Add file validation feedback
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files[0];
+            if (file) {
+                // Show file info
+                const fileInfo = document.createElement('div');
+                fileInfo.style.cssText = `
+                    margin-top: var(--space-4);
+                    padding: var(--space-3);
+                    background: rgba(16, 185, 129, 0.1);
+                    border: 1px solid rgba(16, 185, 129, 0.2);
+                    border-radius: var(--radius-lg);
+                    color: var(--success);
+                    font-size: 0.875rem;
+                    display: flex;
+                    align-items: center;
+                    gap: var(--space-2);
+                `;
+                fileInfo.innerHTML = `
+                    <i class="fas fa-check-circle"></i>
+                    <span>Đã chọn: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)} MB)</span>
+                `;
+                
+                // Remove existing file info
+                const existingInfo = uploadArea.querySelector('.file-info');
+                if (existingInfo) {
+                    existingInfo.remove();
+                }
+                
+                fileInfo.classList.add('file-info');
+                uploadArea.appendChild(fileInfo);
+            }
         });
     </script>
 </body>
